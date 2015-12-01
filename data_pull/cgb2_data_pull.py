@@ -321,7 +321,7 @@ def week_batches_prod(week=2):
     return week_use_df
 
 
-def comp_df_defs(comp):
+def comp_df_defs(comp=None):
     """
     A place-keeper function for holding the dataframes of the comps batched in
     2015. Holds the DataFrame in a dict, then calls the dict[comp] to retrieve
@@ -474,8 +474,10 @@ def comp_df_defs(comp):
                '1968': c_1968_df, '1651': c_1651_df, '2004': c_2004_df,
                '6105': c_6105_df, '2073': c_2073_df, '1661': c_1661_df,
                '6101': c_6101_df, '2290': c_2290_df, '3036': c_3036_df}
-
-    return df_dict[comp]
+    if comp == None:
+        return df_dict
+    else:
+        return df_dict[comp]
 
 
 def mat_use_by_x_week(stockcode, num_weeks=2):
@@ -554,13 +556,15 @@ def material_usage_statistics(weeks):
     mat_stats_df['Max_Usage'] = max_list
     return mat_stats_df
 
-wk_1_stats = pickle.load(open('1_wk_rm_stats_rev_1.pickle', 'rb'))
-wk_2_stats = pickle.load(open('2_wk_rm_stats_rev_1.pickle', 'rb'))
+# wk_1_stats = pickle.load(open('1_wk_rm_stats_rev_1.pickle', 'rb'))
+# wk_2_stats = pickle.load(open('2_wk_rm_stats_rev_1.pickle', 'rb'))
+#
+# print(wk_1_stats)
+# print(wk_2_stats)
+#
+# writer = pd.ExcelWriter(r'C:/rm_stats_rev_1.xlsx')
+# wk_1_stats.to_excel(writer, '1Week')
+# wk_2_stats.to_excel(writer, '2week')
+# writer.save()
 
-print(wk_1_stats)
-print(wk_2_stats)
-
-writer = pd.ExcelWriter(r'C:/rm_stats_rev_1.xlsx')
-wk_1_stats.to_excel(writer, '1Week')
-wk_2_stats.to_excel(writer, '2week')
-writer.save()
+print(material_usage_statistics(1))
